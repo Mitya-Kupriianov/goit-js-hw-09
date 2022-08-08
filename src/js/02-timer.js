@@ -7,6 +7,7 @@ let id = null;
 
 const reff = {
   btnStart: document.querySelector('[data-start]'),
+  btnReset: document.querySelector('[data-reset]'),
   dataDays: document.querySelector('[data-days]'),
   dataHours: document.querySelector('[data-hours]'),
   dataMinutes: document.querySelector('[data-minutes]'),
@@ -17,7 +18,9 @@ const reff = {
 function btnDisable(btn, onOf) {
   btn.disabled = onOf;
 }
+btnDisable(reff.btnReset, true);
 btnDisable(reff.btnStart, true);
+
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -35,7 +38,6 @@ const options = {
       return Notify.failure('Please choose a date in the future');
     } else {
       btnDisable(reff.btnStart, false);
-      btnDisable(reff.dataInput, true);
 
       Notify.success('Date is correct!');
     }
@@ -61,10 +63,24 @@ function addLeadingZero(value) {
 }
 
 function onTimerStart() {
+  btnDisable(reff.dataInput, true);
   btnDisable(reff.btnStart, true);
+  btnDisable(reff.btnReset, false);
   id = setInterval(recordingData, 1000);
 }
+function onTimerReset() {
+  btnDisable(reff.dataInput, false);
+  btnDisable(reff.btnReset, true);
+  clearInterval(id);
+
+  reff.dataDays.textContent = '00';
+  reff.dataHours.textContent = '00';
+  reff.dataMinutes.textContent = '00';
+  reff.dataSeconds.textContent = '00';
+}
 reff.btnStart.addEventListener('click', onTimerStart);
+reff.btnReset.addEventListener('click', onTimerReset);
+
 function convertMs(ms) {
   const second = 1000;
   const minute = second * 60;
