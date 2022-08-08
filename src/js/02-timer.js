@@ -11,6 +11,7 @@ const reff = {
   dataHours: document.querySelector('[data-hours]'),
   dataMinutes: document.querySelector('[data-minutes]'),
   dataSeconds: document.querySelector('[data-seconds]'),
+  dataInput: document.querySelector('#datetime-picker'),
 };
 
 function btnDisable(btn, onOf) {
@@ -34,6 +35,8 @@ const options = {
       return Notify.failure('Please choose a date in the future');
     } else {
       btnDisable(reff.btnStart, false);
+      btnDisable(reff.dataInput, true);
+
       Notify.success('Date is correct!');
     }
   },
