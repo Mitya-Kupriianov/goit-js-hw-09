@@ -47,6 +47,7 @@ const flatPickr = flatpickr(input, options);
 function recordingData() {
   const time = flatPickr.selectedDates[0].getTime() - Date.now();
   if (time < 1000) {
+    btnDisable(reff.dataInput, false);
     clearInterval(id);
   }
 
